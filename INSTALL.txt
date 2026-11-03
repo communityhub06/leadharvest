@@ -1,0 +1,106 @@
+LeadHarvest 1.0.0
+=================
+
+Turn any list of URLs into a clean, validated lead CSV.
+
+
+INSTALL (3 steps)
+-----------------
+
+1. Install Python 3.10 or newer
+   https://www.python.org/downloads/
+   IMPORTANT: tick "Add Python to PATH" on the installer's first screen.
+
+2. Open a terminal (Command Prompt on Windows) and run:
+
+       pip install leadharvest-1.0.0-py3-none-any.whl
+
+   If that says it cannot find the file, `cd` into this folder first.
+
+3. Run it:
+
+       leadharvest --help
+
+
+QUICK START
+-----------
+
+Put your URLs in a text file, one per line:
+
+       urls.txt
+       --------------------------------
+       https://acme.fr
+       https://shop.example.com
+       https://cafe-lune.com
+       --------------------------------
+
+Then run:
+
+       leadharvest -i urls.txt -o leads.csv
+
+Open leads.csv in Excel.
+
+
+IMPORTANT: --region
+-------------------
+
+Phone numbers written in national form (like "06 12 34 56 78") need to
+know which country they belong to. Without a region, LeadHarvest only
+matches numbers already in international form ("+33...").
+
+       leadharvest -i urls.txt --region FR
+       leadharvest -i urls.txt --region FR,US
+
+Use a comma for multiple countries.
+
+
+OTHER USEFUL OPTIONS
+--------------------
+
+  --domain example.com        crawl a site and discover URLs itself
+  --max-pages 50              how many pages the crawl may visit
+  --depth 3                   how deep to follow links
+  --format both               write CSV and JSON
+  -j 16                       more parallel requests (faster)
+  --timeout 30                be patient with slow sites
+  --insecure                  if your corporate proxy breaks TLS
+  --quiet                     no progress output
+
+
+WHAT YOU GET
+------------
+
+  domain, name, emails, phones, linkedin, twitter, facebook,
+  instagram, youtube, tiktok, github, website, description, error
+
+  - Emails are junk-filtered (hero@2x.png and friends are rejected)
+  - Phones are validated through Google's libphonenumber and written
+    in E.164 form, e.g. +33472000000
+  - Sites that fail are kept, with the reason in the "error" column
+  - The CSV is UTF-8 with BOM so Excel shows accents correctly
+
+
+TROUBLESHOOTING
+---------------
+
+  "no phones found"
+      Add --region with your country code.
+
+  "SSL: CERTIFICATE_VERIFY_FAILED"
+      Your network is inspecting TLS. Add --insecure.
+
+  "leadharvest is not recognized"
+      Close and reopen the terminal. Check Python is on PATH:
+          python --version
+
+  "Python was not found"
+      Reinstall Python and tick "Add Python to PATH".
+
+
+SUPPORT
+-------
+
+Reply to your purchase email and I'll get back to you.
+
+Only harvest contact details that are publicly published, and honour
+opt-outs and applicable anti-spam law when you message anyone.

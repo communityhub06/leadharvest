@@ -1,0 +1,5 @@
+# LeadHarvest example — one URL per line, # starts a comment
+https://www.python.org
+https://requests.readthedocs.io
+https://github.com/psf
+https://example.com

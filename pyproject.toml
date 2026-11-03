@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leadharvest"
+version = "1.0.0"
+description = "Harvest emails, phones and social profiles from any list of URLs into a clean CSV."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = []
+authors = [{ name = "LeadHarvest" }]
+keywords = ["leads", "scraper", "email", "outreach", "sales"]
+dependencies = [
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "phonenumbers>=8.13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+leadharvest = "leadharvest.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["leadharvest*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
