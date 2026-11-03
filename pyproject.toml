@@ -9,7 +9,7 @@ description = "Harvest emails, phones and social profiles from any list of URLs 
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
-license-files = []
+license-files = ["LICENSE"]
 authors = [{ name = "LeadHarvest" }]
 keywords = ["leads", "scraper", "email", "outreach", "sales"]
 dependencies = [
