@@ -6,6 +6,118 @@
 <title>LeadHarvest — turn any list of URLs into a clean lead CSV</title>
 <meta name="description" content="Harvest validated emails, phone numbers and social profiles from any list of URLs. libphonenumber-validated, E.164 output, one command.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127805;</text></svg>">
+
+<link rel="canonical" href="https://communityhub06.github.io/leadharvest/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LeadHarvest">
+<meta property="og:title" content="LeadHarvest — turn any list of URLs into a clean lead CSV">
+<meta property="og:description" content="Harvest validated emails, phone numbers and social profiles from any list of URLs. libphonenumber-validated, E.164 output, one command.">
+<meta property="og:url" content="https://communityhub06.github.io/leadharvest/">
+<meta property="og:image" content="https://communityhub06.github.io/leadharvest/og.png">
+<meta property="og:image:alt" content="LeadHarvest — turn any list of URLs into a clean lead CSV">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LeadHarvest — turn any list of URLs into a clean lead CSV">
+<meta name="twitter:description" content="Harvest validated emails, phone numbers and social profiles from any list of URLs. libphonenumber-validated, E.164 output, one command.">
+<meta name="twitter:image" content="https://communityhub06.github.io/leadharvest/og.png">
+
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0b0d">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "LeadHarvest",
+  "alternateName": "LeadHarvest — URL to Lead CSV",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "softwareRequirements": "Python 3.10+",
+  "description": "Harvest validated emails, phone numbers and social profiles from any list of URLs. libphonenumber-validated, E.164 output, one command.",
+  "url": "https://communityhub06.github.io/leadharvest/",
+  "downloadUrl": "https://github.com/communityhub06/leadharvest",
+  "codeRepository": "https://github.com/communityhub06/leadharvest",
+  "license": "https://github.com/communityhub06/leadharvest/blob/main/LICENSE",
+  "isAccessibleForFree": true,
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "LeadHarvest Free",
+      "price": "0",
+      "priceCurrency": "USD",
+      "category": "FreeTrial",
+      "url": "https://github.com/communityhub06/leadharvest",
+      "description": "Up to 25 URLs per run, CSV export, email and social harvesting."
+    },
+    {
+      "@type": "Offer",
+      "name": "LeadHarvest Pro",
+      "price": "29",
+      "priceCurrency": "USD",
+      "category": "OneTimePurchase",
+      "url": "https://communityhub7.gumroad.com/l/leadharvest",
+      "description": "Unlimited URLs, CSV + JSON export, crawl mode, multi-region phones, all social platforms, lifetime updates."
+    },
+    {
+      "@type": "Offer",
+      "name": "LeadHarvest Team",
+      "price": "79",
+      "priceCurrency": "USD",
+      "category": "OneTimePurchase",
+      "url": "https://communityhub7.gumroad.com/l/leadharvest",
+      "description": "Everything in Pro, up to 5 seats, priority support, commercial use licence."
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "1",
+    "bestRating": "5"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does any of my data get sent to a third party?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. LeadHarvest runs entirely on your machine and talks only to the websites you list. There is no telemetry, no account, no API key and no server of ours in the loop." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need --region?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Without a country hint, a bare number like 06 12 34 56 78 is ambiguous. With no region, LeadHarvest only matches numbers already written in international form. Pass --region FR (or FR,US for mixed lists) to unlock national formats." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it work behind a corporate proxy or self-signed cert?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — use --insecure to skip TLS verification. It is off by default because most environments should verify certificates." }
+    },
+    {
+      "@type": "Question",
+      "name": "What format are the phone numbers in?",
+      "acceptedAnswer": { "@type": "Answer", "text": "E.164 — for example +33472000000. This is the format diallers, CRMs and sequencers expect, so imports do not silently fail." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is scraping contact details legal?",
+      "acceptedAnswer": { "@type": "Answer", "text": "You are responsible for how you use the list. Harvest only publicly published details, respect robots.txt and opt-outs, and comply with CAN-SPAM, GDPR and CASL when you message anyone." }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I need to run it?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Python 3.10 or newer. Windows, macOS and Linux all work. No database, no Docker, no cloud account." }
+    }
+  ]
+}
+</script>
+
 <style>
   :root{
     --bg:#0a0b0d; --panel:#111317; --panel2:#16191f; --line:#23262d;
