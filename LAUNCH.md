@@ -23,7 +23,14 @@ Everything below is built and tested. The only steps left are the ones that lega
 | Gumroad product, $29, published | ✅ live | https://communityhub7.gumroad.com/l/leadharvest |
 | Payout method (BE bank) | ✅ connected | Gumroad → Payouts |
 | Full purchase flow | ✅ tested | test purchase: receipt + download link issued |
-| Published listings (Fiverr/Reddit/HN/IH) | ❌ you | accounts required |
+| SEO — OG, Twitter card, canonical, JSON-LD, OG image | ✅ live | verified: 8 OG + 4 Twitter + 2 JSON-LD blocks, `og.png` 200 |
+| Outreach — Hacker News | ❌ dropped | `news.ycombinator.com` unreachable from this network |
+| Outreach — Fiverr | ❌ dropped | PerimeterX antibot, session can't be kept alive |
+| Outreach — Indie Hackers | ❌ dropped | signup is Google-only OAuth, Google login failing |
+| Outreach — Reddit | ⏳ waiting | r/SaaS AutoMod removed the post: account must be 7 days old |
+| — r/SaaS post (auto-removed) | ⏳ repost after day 7 | text ready in `SELLING.md` |
+| — r/Python post | ⏳ day 2 | text ready in `SELLING.md` |
+| — r/Entrepreneur post | ⏳ day 3 | text ready in `SELLING.md` |
 
 ---
 
