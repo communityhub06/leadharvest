@@ -24,6 +24,10 @@ Everything below is built and tested. The only steps left are the ones that lega
 | Payout method (BE bank) | ✅ connected | Gumroad → Payouts |
 | Full purchase flow | ✅ tested | test purchase: receipt + download link issued |
 | SEO — OG, Twitter card, canonical, JSON-LD, OG image | ✅ live | verified: 8 OG + 4 Twitter + 2 JSON-LD blocks, `og.png` 200 |
+| SEO — sitemap.xml + robots.txt | ✅ live | both 200; robots points at the sitemap |
+| Gumroad Discover — category | ✅ set | `Business & Money > Marketing & Sales` (was `Other`) |
+| Gumroad Discover — 10 tags | ✅ set | lead generation, lead scraper, email finder, prospecting, sales leads, web scraper, cold email, python cli, contact list, phone numbers |
+| Gumroad Discover — listing | ⏳ locked | Gumroad: needs ≥1 successful sale **and** Risk Review; also ≤$100 price ✓ |
 | Outreach — Hacker News | ❌ dropped | `news.ycombinator.com` unreachable from this network |
 | Outreach — Fiverr | ❌ dropped | PerimeterX antibot, session can't be kept alive |
 | Outreach — Indie Hackers | ❌ dropped | signup is Google-only OAuth, Google login failing |
