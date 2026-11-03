@@ -5,7 +5,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from . import __version__
+from . import __version__, tier
 from .crawl import crawl
 from .extract import extract
 from .fetch import canonical_url, fetch, make_session
@@ -34,8 +34,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--insecure", action="store_true", help="skip TLS verification")
     parser.add_argument("--quiet", action="store_true", help="suppress progress output")
-    parser.add_argument("--version", action="version", version=f"leadharvest {__version__}")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"leadharvest {__version__} ({tier.edition()})",
+    )
     return parser
+
+
+def enforce_tier(args: argparse.Namespace) -> None:
+    """Reject Pro features before any network I/O happens."""
+    if args.format not in tier.FORMATS:
+        raise SystemExit(tier.blocked(f"--format {args.format}", "JSON and dual export are included"))
+    if args.domain and not tier.CRAWL:
+        raise SystemExit(tier.blocked("--domain", "crawl mode is included"))
+    if args.region and not tier.REGIONS:
+        raise SystemExit(tier.blocked("--region", "multi-region phone parsing is included"))
 
 
 def parse_regions(value: str | None) -> tuple[str, ...] | None:
@@ -103,6 +117,7 @@ def harvest(
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    enforce_tier(args)
     session = make_session(insecure=args.insecure)
     regions = parse_regions(args.region)
 
@@ -110,6 +125,12 @@ def main(argv: list[str] | None = None) -> int:
     if not urls:
         print("no URLs — pass targets, --input FILE, or --domain SEED", file=sys.stderr)
         return 2
+
+    if tier.MAX_URLS is not None and len(urls) > tier.MAX_URLS:
+        raise SystemExit(
+            f"{len(urls)} URLs found — the Free edition runs {tier.MAX_URLS} at a time.\n"
+            f"Split the list into batches, or unlock unlimited: {tier.UPGRADE_URL}"
+        )
 
     if not args.quiet:
         print(f"harvesting {len(urls)} URL(s)...", file=sys.stderr)

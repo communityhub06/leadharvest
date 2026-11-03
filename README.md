@@ -3,7 +3,7 @@
 Turn any list of URLs into a clean, validated lead CSV — emails, phone numbers and social profiles in one pass.
 
 ```bash
-leadharvest -i urls.txt -o leads.csv --region FR,US
+leadharvest -i urls.txt -o leads.csv
 ```
 
 ```
@@ -17,17 +17,36 @@ Naive scrapers fill your CSV with star counts, dates and fibonacci sequences pre
 
 - **Emails** — `mailto:` links plus body text, junk filtered (`hero@2x.png`, `style@1.css`, script contents)
 - **Phones** — validated and normalised to **E.164** (`+33472000000`), ready for any dialler or sequencer
-- **Socials** — LinkedIn, X, Facebook, Instagram, YouTube, TikTok, GitHub and more, absolutised
+- **Socials** — LinkedIn, X, Facebook, Instagram and GitHub (Pro adds YouTube, TikTok, Telegram, Discord and 7 more), absolutised
 - **Names** — `og:site_name` → `<title>` → `<h1>`, plus meta description
 - **Parallel** — 8 concurrent requests by default, with retries and a 5 MB page cap
 
 ## Install
 
 ```bash
-pip install .
+pip install leadharvest
 ```
 
 Requires Python 3.10+. Dependencies: `requests`, `beautifulsoup4`, `phonenumbers`.
+
+## Editions
+
+This build is **Free**: 25 URLs per run, CSV export, five social platforms. It
+runs entirely on your machine — no account, no licence key, no telemetry.
+
+| | Free | Pro ($29, one-time) |
+|---|---|---|
+| URLs per run | 25 | unlimited |
+| Export | CSV | CSV + JSON |
+| Crawl mode (`--domain`) | — | yes |
+| Region hints (`--region`) | — | yes |
+| Social platforms | 5 | 14+ |
+| Support | community | priority |
+
+Pro unlocks the features below and ships as a single zip from
+<https://communityhub7.gumroad.com/l/leadharvest>. The limits live in
+`leadharvest/tier.py` — that is the whole mechanism, there is nothing to phone
+home to.
 
 ## Usage
 
@@ -37,7 +56,11 @@ leadharvest -i urls.txt -o leads.csv
 
 # explicit targets
 leadharvest https://acme.fr https://shop.example.com
+```
 
+Pro:
+
+```bash
 # crawl a whole site to discover URLs first
 leadharvest --domain acme.fr --max-pages 50 --depth 3
 
@@ -45,25 +68,24 @@ leadharvest --domain acme.fr --max-pages 50 --depth 3
 leadharvest -i urls.txt --format both -o out/leads
 
 # national numbers need a region — otherwise only +international ones match
-leadharvest -i urls.txt --region FR
 leadharvest -i urls.txt --region FR,US
 ```
 
 ### Options
 
-| Flag | Default | Purpose |
-|---|---|---|
-| `-i, --input` | — | file with one URL per line |
-| `-d, --domain` | — | seed domain to crawl |
-| `--max-pages` | `25` | crawl page budget |
-| `--depth` | `2` | crawl link depth |
-| `-o, --output` | `leads.csv` | output path |
-| `--format` | `csv` | `csv`, `json` or `both` |
-| `-j, --jobs` | `8` | parallel requests |
-| `--timeout` | `15` | per-request seconds |
-| `--region` | — | default region(s) for national phone numbers |
-| `--insecure` | off | skip TLS verification (corporate proxies) |
-| `--quiet` | off | suppress progress output |
+| Flag | Edition | Default | Purpose |
+|---|---|---|---|
+| `-i, --input` | Free | — | file with one URL per line |
+| `-d, --domain` | Pro | — | seed domain to crawl |
+| `--max-pages` | Pro | `25` | crawl page budget |
+| `--depth` | Pro | `2` | crawl link depth |
+| `-o, --output` | Free | `leads.csv` | output path |
+| `--format` | CSV free, JSON Pro | `csv` | `csv`, `json` or `both` |
+| `-j, --jobs` | Free | `8` | parallel requests |
+| `--timeout` | Free | `15` | per-request seconds |
+| `--region` | Pro | — | default region(s) for national phone numbers |
+| `--insecure` | Free | off | skip TLS verification (corporate proxies) |
+| `--quiet` | Free | off | suppress progress output |
 
 ## Output
 
@@ -87,7 +109,7 @@ pip install -e ".[dev]"
 pytest
 ```
 
-57 tests covering extraction, phone validation, email filtering, CSV/JSON round-trips and CLI parsing.
+67 tests covering extraction, phone validation, email filtering, CSV/JSON round-trips, CLI parsing and the Free/Pro tier boundaries.
 
 ## Legal note
 

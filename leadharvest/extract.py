@@ -6,6 +6,7 @@ from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
+from . import tier
 from .phones import clean_phone, phones_from_text
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,24}")
@@ -119,8 +120,11 @@ def _social_from_links(soup: BeautifulSoup, base_url: str) -> dict[str, str]:
             continue
         absolute = urljoin(base_url, href)
         platform = social_platform(absolute)
-        if platform and platform not in found:
-            found[platform] = absolute.split("#", 1)[0]
+        if platform is None or platform in found:
+            continue
+        if tier.SOCIAL is not None and platform not in tier.SOCIAL:
+            continue
+        found[platform] = absolute.split("#", 1)[0]
     return found
 
 
