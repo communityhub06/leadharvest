@@ -17,10 +17,13 @@ Everything below is built and tested. The only steps left are the ones that lega
 | README / docs | ✅ done | `README.md` |
 | This launch plan | ✅ done | `LAUNCH.md` |
 | Sales copy & outreach templates | ✅ done | `SELLING.md` |
-| Store account | ❌ you | — |
-| Payment link | ❌ you | — |
-| Hosting deploy | ❌ you | — |
-| Published listings | ❌ you | — |
+| GitHub repo (public) | ✅ live | https://github.com/communityhub06/leadharvest |
+| Landing page deployed | ✅ live | https://communityhub06.github.io/leadharvest/ |
+| Buy links wired into page | ✅ live | points at the Gumroad product |
+| Gumroad product, $29, published | ✅ live | https://communityhub7.gumroad.com/l/leadharvest |
+| Payout method (BE bank) | ✅ connected | Gumroad → Payouts |
+| Full purchase flow | ✅ tested | test purchase: receipt + download link issued |
+| Published listings (Fiverr/Reddit/HN/IH) | ❌ you | accounts required |
 
 ---
 
