@@ -6,18 +6,32 @@ Everything below is built and tested. The only steps left are the ones that lega
 
 ---
 
+## BLOCKED ON YOU (2 things, ~10 min)
+
+| # | What | Why only you | Link |
+|---|---|---|---|
+| 1 | **PyPI account + API token** | registration needs a real email; the landing page promises `pip install leadharvest` and the package is not on PyPI yet | https://pypi.org/account/register/ → then https://pypi.org/manage/account/token/ (scope: *upload to new project* → project `leadharvest`) |
+| 2 | **Gumroad re-login** | session expired; the live product still serves the **old 31 KB zip** (contains internal docs, no LICENSE, no Free/Pro split) | https://gumroad.com/login → I do the upload from there |
+
+Once you hand me the PyPI token I upload the wheel + sdist and `pip install leadharvest` becomes true.
+
+---
+
 ## What's already done
 
 | Item | Status | Where |
 |---|---|---|
 | The product (Python CLI) | ✅ done | `leadharvest/` |
-| Test suite — 57 passing | ✅ done | `tests/` |
-| Installable package + wheel | ✅ done | `dist/` |
+| Test suite — 67 passing (Free + Pro builds both verified) | ✅ done | `tests/` |
+| Free/Pro split enforced in code | ✅ done | `leadharvest/tier.py` — 25 URLs, CSV only, 5 platforms; Pro build lifts everything |
+| Both editions built & self-verified | ✅ done | `python build_dist.py` / `--pro` → `dist/leadharvest-1.0.0.zip` (19.7 KB) + `-pro.zip` (21.2 KB) |
+| MIT LICENSE | ✅ done | `LICENSE` — GitHub badge + `GET /license` → 200 |
 | Landing page | ✅ done | `site/index.html` |
-| README / docs | ✅ done | `README.md` |
+| README / docs | ✅ done | `README.md` — Editions table, Pro flags marked |
 | This launch plan | ✅ done | `LAUNCH.md` |
 | Sales copy & outreach templates | ✅ done | `SELLING.md` |
 | GitHub repo (public) | ✅ live | https://github.com/communityhub06/leadharvest |
+| GitHub metadata — description, homepage, 15 topics, MIT license | ✅ live | verified via API |
 | Landing page deployed | ✅ live | https://communityhub06.github.io/leadharvest/ |
 | Buy links wired into page | ✅ live | points at the Gumroad product |
 | Gumroad product, $29, published | ✅ live | https://communityhub7.gumroad.com/l/leadharvest |
@@ -25,9 +39,12 @@ Everything below is built and tested. The only steps left are the ones that lega
 | Full purchase flow | ✅ tested | test purchase: receipt + download link issued |
 | SEO — OG, Twitter card, canonical, JSON-LD, OG image | ✅ live | verified: 8 OG + 4 Twitter + 2 JSON-LD blocks, `og.png` 200 |
 | SEO — sitemap.xml + robots.txt | ✅ live | both 200; robots points at the sitemap |
+| SEO — fake `aggregateRating` removed | ✅ done | 0 sales / 0 reviews: structured-data spam risk |
 | Gumroad Discover — category | ✅ set | `Business & Money > Marketing & Sales` (was `Other`) |
 | Gumroad Discover — 10 tags | ✅ set | lead generation, lead scraper, email finder, prospecting, sales leads, web scraper, cold email, python cli, contact list, phone numbers |
 | Gumroad Discover — listing | ⏳ locked | Gumroad: needs ≥1 successful sale **and** Risk Review; also ≤$100 price ✓ |
+| PyPI — `pip install leadharvest` | ⏳ blocked | package 404 on PyPI, name free — needs your account (see above) |
+| Gumroad — Pro zip upload | ⏳ blocked | session expired — needs your login (see above); file ready at `dist/leadharvest-1.0.0-pro.zip` |
 | Outreach — Hacker News | ❌ dropped | `news.ycombinator.com` unreachable from this network |
 | Outreach — Fiverr | ❌ dropped | PerimeterX antibot, session can't be kept alive |
 | Outreach — Indie Hackers | ❌ dropped | signup is Google-only OAuth, Google login failing |
@@ -177,21 +194,34 @@ Post between **9–11am ET on a weekday**. This is the highest-variance channel 
 
 ---
 
-## Rebuilding the product file after any code change
+## Rebuilding the product files after any code change
 
 ```bash
-python -m build
+python build_dist.py          # Free  -> dist/leadharvest-1.0.0.zip      (GitHub / PyPI)
+python build_dist.py --pro    # Pro   -> dist/leadharvest-1.0.0-pro.zip  (Gumroad)
 ```
 
-Output lands in `dist/`. Re-upload the `.zip` to Gumroad.
+Each run extracts the archive it just wrote and runs the full test suite from inside it, printing the edition flags it found (`PRO`, `MAX_URLS`, formats, platforms) — so a broken build fails loudly instead of shipping.
+
+- **Free zip** — public, ships `README.md` + `LICENSE`.
+- **Pro zip** — same tree with `leadharvest/tier.py` rewritten to `PRO = True`, plus `INSTALL.txt`. No licence key, no phone-home.
+
+Re-upload the Pro zip to Gumroad → **Content** tab after any code change.
 
 ---
 
 ## Running the tool yourself (for demos and screenshots)
 
+The checkout is the **Free** edition, so Pro flags are rejected on purpose. For Pro demos build and extract the Pro zip first:
+
 ```bash
-python -m leadharvest -i examples\urls.txt -o out\leads.csv --region FR,US
+# Free (what the public gets)
+python -m leadharvest -i examples\urls.txt -o out\leads.csv
+python -m leadharvest --version          # -> leadharvest 1.0.0 (Free)
+
+# Pro (unzip dist\leadharvest-1.0.0-pro.zip somewhere, then)
 python -m leadharvest --domain python.org --max-pages 20 --insecure
+python -m leadharvest -i examples\urls.txt --region FR,US --format both -o out\leads
 ```
 
 > On this machine TLS verification is intercepted by a local proxy, so add `--insecure` when demoing. Buyers on normal networks don't need it.
@@ -203,7 +233,7 @@ python -m leadharvest --domain python.org --max-pages 20 --insecure
 Create one email early: `hello@yourdomain.com` or just use your personal one. You will get:
 
 - "How do I install Python?" → send them `README.md` → Install section
-- "It found no phones" → tell them `--region FR`
+- "It found no phones" → numbers written as `06 12 34 56 78` need a country hint: `--region FR` is a **Pro** feature. On Free only `+33…` numbers match — tell them that plainly, and that Pro unlocks it.
 - "Can I have a refund?" → refund immediately, no argument. Refunds cost less than chargebacks.
 
 ---
