@@ -50,7 +50,7 @@
       "priceCurrency": "USD",
       "category": "FreeTrial",
       "url": "https://github.com/communityhub06/leadharvest",
-      "description": "Up to 25 URLs per run, CSV export, email and social harvesting."
+      "description": "Up to 25 URLs per run, CSV export, 5 social platforms, email harvesting."
     },
     {
       "@type": "Offer",
@@ -70,13 +70,7 @@
       "url": "https://communityhub7.gumroad.com/l/leadharvest",
       "description": "Everything in Pro, up to 5 seats, priority support, commercial use licence."
     }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "ratingCount": "1",
-    "bestRating": "5"
-  }
+  ]
 }
 </script>
 
@@ -156,6 +150,7 @@
   .sub{font-size:clamp(16px,2vw,19px);color:var(--mut);max-width:56ch;margin:24px auto 36px}
   .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
   .hint{font-size:13px;color:var(--dim);margin-top:18px}
+  .pro{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--warn);color:#3a2405;padding:2px 7px;border-radius:100px;vertical-align:middle;white-space:nowrap}
 
   .term{max-width:820px;margin:56px auto 0;background:#07080a;border:1px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
   .bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
@@ -270,7 +265,7 @@
 
     <div class="term">
       <div><div class="bar"><i></i><i></i><i></i><span>~/leads</span></div></div>
-      <pre><span class="p2">$</span> <span class="p1">leadharvest</span> -i urls.txt -o leads.csv <span class="p4">--region FR,US</span>
+      <pre><span class="p2">$</span> <span class="p1">leadharvest</span> -i urls.txt -o leads.csv
 <span class="p2">harvesting 480 URL(s)...</span>
 <span class="p1">done</span> — 480 sites | 391 with email | 612 emails | 244 phones | 6 failed
 <span class="p1">wrote</span> leads.csv
@@ -283,8 +278,8 @@
 
 <div class="strip">
   <div class="wrap">
-    <div class="stat"><b>57</b><span>tests passing</span></div>
-    <div class="stat"><b>14+</b><span>social platforms</span></div>
+    <div class="stat"><b>67</b><span>tests passing</span></div>
+    <div class="stat"><b>14+</b><span>social platforms in Pro</span></div>
     <div class="stat"><b>E.164</b><span>phone output format</span></div>
     <div class="stat"><b>0</b><span>data sent to a server</span></div>
   </div>
@@ -299,10 +294,10 @@
     </div>
     <div class="grid">
       <div class="card"><span class="ico">📧</span><h3>Emails that aren't junk</h3><p>Body text and <code>mailto:</code> links, with image paths, script contents and malformed addresses filtered out before they hit your file.</p></div>
-      <div class="card"><span class="ico">📱</span><h3>Phones you can dial</h3><p>Every number validated by Google's libphonenumber and normalised to E.164. National formats work too with <code>--region</code>.</p></div>
-      <div class="card"><span class="ico">🔗</span><h3>Social profiles</h3><p>LinkedIn, X, Facebook, Instagram, YouTube, TikTok, GitHub, Telegram and more — resolved to full, clickable URLs.</p></div>
+      <div class="card"><span class="ico">📱</span><h3>Phones you can dial</h3><p>Every number validated by Google's libphonenumber and normalised to E.164. International numbers match out of the box; <code>--region</code> unlocks national formats (<span class="pro">Pro</span>).</p></div>
+      <div class="card"><span class="ico">🔗</span><h3>Social profiles</h3><p>LinkedIn, X, Facebook, Instagram and GitHub on Free — YouTube, TikTok, Telegram, Discord and 7 more with <span class="pro">Pro</span> — all resolved to full, clickable URLs.</p></div>
       <div class="card"><span class="ico">🏷️</span><h3>Company identity</h3><p>Site name pulled from <code>og:site_name</code>, then <code>&lt;title&gt;</code>, then <code>&lt;h1&gt;</code> — plus the meta description for your first line.</p></div>
-      <div class="card"><span class="ico">⚡</span><h3>Parallel and patient</h3><p>Eight concurrent requests, configurable timeouts, a 5 MB page cap and rotating user agents. Crawl mode discovers URLs for you.</p></div>
+      <div class="card"><span class="ico">⚡</span><h3>Parallel and patient</h3><p>Eight concurrent requests, configurable timeouts, a 5 MB page cap and rotating user agents. Crawl mode discovers URLs for you (<span class="pro">Pro</span>).</p></div>
       <div class="card"><span class="ico">🛡️</span><h3>Never loses a row</h3><p>Failed sites are kept with the reason in an <code>error</code> column. Sorted, deduplicated, UTF-8 with BOM so Excel opens accents right.</p></div>
     </div>
   </div>
@@ -322,15 +317,18 @@
       </div>
       <div class="step">
         <h3>Point it at your URLs</h3>
-        <p>Paste a list, or let it crawl a domain and find the pages itself.</p>
-        <code>leadharvest -i urls.txt --region FR</code>
+        <p>Paste a list, one URL per line, and name the file you want back.</p>
+        <code>leadharvest -i urls.txt -o leads.csv</code>
       </div>
       <div class="step">
         <h3>Import and send</h3>
         <p>Open the CSV in Excel or push it straight into your sequencer.</p>
-        <code>leadharvest --domain acme.fr -o leads.csv</code>
+        <code>leadharvest https://acme.fr https://shop.example.com</code>
       </div>
     </div>
+    <p class="hint" style="text-align:center;margin-top:24px">
+      <span class="pro">Pro</span> adds <code>--domain</code> crawl mode, <code>--format both</code> JSON export and <code>--region</code> for national numbers.
+    </p>
   </div>
 </section>
 
@@ -343,7 +341,7 @@
         <p>A regex that looks for digit patterns will happily hand you repository star counts, publish dates and Fibonacci sequences as "phone numbers". Then you spend an hour deleting them.</p>
         <ul class="checks">
           <li><b>Context-aware matching.</b> <span>Numbers embedded in longer digit runs are rejected automatically.</span></li>
-          <li><b>National formats supported.</b> <span>Pass <code>--region FR</code> and <code>06 12 34 56 78</code> becomes <code>+33612345678</code>.</span></li>
+          <li><b>National formats supported.</b> <span>Pass <code>--region FR</code> (<span class="pro">Pro</span>) and <code>06 12 34 56 78</code> becomes <code>+33612345678</code>. International numbers work on every edition.</span></li>
           <li><b>Consistent output.</b> <span>Everything is E.164 — importable into any dialler or sequencer.</span></li>
           <li><b>Junk emails filtered.</b> <span><code>hero@2x.png</code>, <code>style@1.css</code> and script contents never make it through.</span></li>
         </ul>
@@ -384,7 +382,7 @@
         <ul>
           <li>Up to 25 URLs per run</li>
           <li>CSV export</li>
-          <li>Email + social harvesting</li>
+          <li>Email + 5 social platforms</li>
           <li>Community support</li>
         </ul>
         <!-- SWAP-1: free = the public source repo -->
@@ -435,7 +433,11 @@
       </details>
       <details>
         <summary>Why do I need <code>--region</code>?</summary>
-        <p>Without a country hint, a bare number like <code>06 12 34 56 78</code> is ambiguous — it could belong to several countries. With no region, LeadHarvest only matches numbers already written in international form (<code>+33…</code>). Pass <code>--region FR</code> (or <code>FR,US</code> for mixed lists) to unlock national formats.</p>
+        <p>Without a country hint, a bare number like <code>06 12 34 56 78</code> is ambiguous — it could belong to several countries. With no region, LeadHarvest only matches numbers already written in international form (<code>+33…</code>). Pass <code>--region FR</code> (or <code>FR,US</code> for mixed lists) to unlock national formats. Region hints are a <span class="pro">Pro</span> feature.</p>
+      </details>
+      <details>
+        <summary>What exactly does Free include?</summary>
+        <p>Free runs 25 URLs per run, writes CSV, and resolves LinkedIn, X, Facebook, Instagram and GitHub. Pro lifts all of it: unlimited URLs, JSON export, crawl mode, region hints and 14+ social platforms — $29 once, no subscription. The limits live in <code>leadharvest/tier.py</code> inside the package; there is no account, no licence key and no phone-home.</p>
       </details>
       <details>
         <summary>Will it work behind a corporate proxy or self-signed cert?</summary>
