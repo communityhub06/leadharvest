@@ -11,11 +11,19 @@ INSTALL (3 steps)
    https://www.python.org/downloads/
    IMPORTANT: tick "Add Python to PATH" on the installer's first screen.
 
-2. Open a terminal (Command Prompt on Windows) and run:
+2. Open a terminal (Command Prompt on Windows), change into this folder,
+   then run:
 
-       pip install leadharvest-1.0.0-py3-none-any.whl
+       pip install .
 
-   If that says it cannot find the file, `cd` into this folder first.
+   "cd" is the command that moves you into the folder, e.g.:
+
+       cd Downloads\leadharvest-1.0.0
+
+   If pip still cannot find it, check you are inside the folder that
+   contains the file called pyproject.toml:
+
+       dir
 
 3. Run it:
 
